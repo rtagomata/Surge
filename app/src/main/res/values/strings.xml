@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Surge</string>
+    <string name="buttonplaceholder" />
+    <string name="defaultTextPlaceholder">text</string>
+    <string name="daddition">△d = v<sub>1</sub>t<sub>1</sub> + v<sub>2</sub>t<sub>2</sub></string>
+    <string name="acceleration1"> <mfrac numalign="left">
+  <mrow>
+    <mi>a</mi><mo>+</mo><mi>b</mi>
+  </mrow>
+  <mrow>
+    <mi>a</mi><mo>+</mo><mi>b</mi><mo>+</mo><mi>c</mi>
+  </mrow>
+</mfrac></string>
+    <string name="acceleration">aa</string>
+    <string name="empty" />
+
+
+</resources>
