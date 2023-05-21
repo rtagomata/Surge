@@ -152,9 +152,6 @@ class QuestionsVel1002 : AppCompatActivity() {
     }
 
 
-
-
-
     fun setQuestionText(velocity1:Double, velocity2:Double, time1:Double, time2:Double, displacement: Double, questionField: TextView, questionNum: TextView, type:Int)
     {
         //TODO

@@ -2,17 +2,16 @@ package com.example.physics
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.widget.*
+import android.widget.Button
+import android.widget.TextView
 import java.math.RoundingMode
 import kotlin.random.Random
 
-class QuestionsVel1004 : AppCompatActivity() {
-
+class QuestionsVel1005 : AppCompatActivity() {
 
     var answerButtons : Array<Button> = arrayOf()
     var answersArray = DoubleArray(4)
@@ -55,10 +54,8 @@ class QuestionsVel1004 : AppCompatActivity() {
             }
         }
         setUp()
-
-
-
     }
+
     fun end()
     {
         intent = Intent(this, QuestionsMenu::class.java)
@@ -73,11 +70,15 @@ class QuestionsVel1004 : AppCompatActivity() {
         if (index == 1 || index == 2)
         {
 
-            setUpA()
+            setUpX()
         }
-        else if (index == 3 || index == 4)
+        else if (index == 3)
         {
-            setUpV()
+            setUpVi()
+        }
+        else if (index == 4)
+        {
+            setUpVf()
         }
         else if (index == 5 || index == 6)
         {
@@ -85,75 +86,85 @@ class QuestionsVel1004 : AppCompatActivity() {
         }
         else
         {
-            val x = Random.nextInt(1,4)
-            if (x == 1) setUpA()
-            if (x == 2) setUpV()
+            val x = Random.nextInt(1,5)
+            if (x == 1) setUpX()
+            if (x == 2) setUpVi()
             if (x == 3) setUpT()
+            if (x == 4) setUpVf()
         }
 
     }
-    fun setUpA()
+
+    fun setUpX()
     {
-        val (time, acceleration, velocity) = setVariables()
-        answersArray = QuestionHelper.createSmallAnswersA(acceleration)
-        setButtons(velocity)
-        setQuestionText(velocity, acceleration, time, questionField, questionNum, 1)
+        val (vi, vf, t, x) = setVariables()
+        answersArray = QuestionHelper.createBigAnswersA(vi, vf, x)
+        setButtons(x)
+        setQuestionText(vi, vf, t, x, questionField, questionNum, 3)
     }
 
-    fun setUpV()
+    fun setUpVi()
     {
-        val (time, acceleration, velocity) = setVariables()
-        answersArray = QuestionHelper.createBigAnswersA(time, acceleration, velocity)
-        setButtons(velocity)
-        setQuestionText(velocity, acceleration, time, questionField, questionNum, 2)
+        val (vi, vf, t, x) = setVariables()
+        answersArray = QuestionHelper.createSmallAnswersA(vi)
+        setButtons(vi)
+        setQuestionText(vi, vf, t, x, questionField, questionNum, 0)
+    }
+
+    fun setUpVf()
+    {
+
+        val (vi, vf, t, x) = setVariables()
+        answersArray = QuestionHelper.createSmallAnswersA(vf)
+        setButtons(vf)
+        setQuestionText(vi, vf, t, x, questionField, questionNum, 1)
     }
 
     fun setUpT()
     {
-        val (time, acceleration, velocity) = setVariables()
-        answersArray = QuestionHelper.createSmallAnswersA(time)
-        setButtons(time)
-        setQuestionText(velocity, acceleration, time, questionField, questionNum, 3)
+
+        val (vi, vf, t, x) = setVariables()
+        answersArray = QuestionHelper.createSmallAnswersA(vi)
+        setButtons(t)
+        setQuestionText(vi, vf, t, x, questionField, questionNum, 2)
     }
 
-
-
-    fun setQuestionText(velocity:Double, acceleration: Double, time: Double, questionField: TextView, questionNum: TextView, type:Int)
+    fun setVariables(): Array<Double>
     {
+        val vi = Random.nextInt(2,15).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
+        val vf = Random.nextInt(1, 10).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
+        val t = Random.nextInt(2,10).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
+        val x = (((vi + vf) / 2) * t).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
 
-        val questionStringArray = arrayOf(
-            "Velocity = $velocity",
-            "Time = $time",
-            "Acceleration = $acceleration"
-            )
+        return arrayOf(vi, vf, t, x)
+    }
 
+    fun setQuestionText(velocityi:Double, velocityf:Double, time:Double, displacement:Double,  questionField: TextView, questionNum: TextView, type:Int)
+    {
+        var questionStringArray = arrayOf<String>()
+
+        questionStringArray = questionStringArray.plus("Velocity i = $velocityi")
+        questionStringArray = questionStringArray.plus("Velocity f = $velocityf")
+        questionStringArray = questionStringArray.plus("Time = $time")
+        questionStringArray = questionStringArray.plus("Displacement = $displacement")
 
         when (type)
         {
-            1 -> questionStringArray[2] = "Acceleration = x"
-            2 -> questionStringArray[0] = "Velocity = x"
-            3 -> questionStringArray[1] = "Time = x"
+            0 -> questionStringArray[type] = "Velocity i = x"
+            1 -> questionStringArray[type] = "Velocity f = x"
+            2 -> questionStringArray[type] = "Time = x"
+            3 -> questionStringArray[type] = "Displacement = x"
         }
 
         questionStringArray.shuffle()
 
-        val questionString = questionStringArray[0] + "\n" + questionStringArray[1] + "\n" + questionStringArray[2]
-
+        val questionString = questionStringArray[0] + "\n" +questionStringArray[1] + "\n" +questionStringArray[2] + "\n" +questionStringArray[3]
         val questionNumString = "Question $index/10"
         questionField.setText(questionString)
         questionNum.setText(questionNumString)
     }
 
-
-    fun setVariables(): Triple<Double, Double, Double>
-    {
-        val t = Random.nextInt(1,20).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
-        val a = Random.nextInt(1, 20).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
-        val v = (t * a).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
-        return Triple(t, a, v)
-    }
-
-    fun setButtons(answer:Double)
+    private fun setButtons(answer:Double)
     {
         for (i in 0..3)
         {
@@ -161,23 +172,19 @@ class QuestionsVel1004 : AppCompatActivity() {
             answerButtons[i].setOnClickListener{
                 if (answer == answersArray[i] && index < 10)
                 {
-
-                    index += 1
                     timeScore += timeRemaining
-                    correctAudioPlayer.start()
+                    index += 1
                     setUp()
-
                 }
                 else if (answer == answersArray[i] && index == 10)
                 {
                     timer.cancel()
                     timeScore += timeRemaining
-                    timeScore = timeScore.toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
                     val highScores = getSharedPreferences("scores", Context.MODE_PRIVATE)
-                    if (highScores.getString("Questionnaire4", "100")!!.toDouble() > timeScore)
+                    if (highScores.getString("Questionnaire2", "100")!!.toDouble() > timeScore)
                     {
-                        highScores.edit().putString("Questionnaire4", timeScore.toString()).apply()
-                        highScores.edit().putInt("mustUpdate", 3).apply()
+                        highScores.edit().putString("Questionnaire2", timeScore.toString()).apply()
+                        highScores.edit().putInt("mustUpdate", 1).apply()
                     }
                     intent = Intent(this, Success::class.java)
                     startActivity(intent)
@@ -190,9 +197,5 @@ class QuestionsVel1004 : AppCompatActivity() {
                 }
             }
         }
-
     }
-
-
 }
-

@@ -33,8 +33,7 @@ class QuestionsMenu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
-        //mathView = findViewById(R.id.mathview)
-        size = 4
+        size = 5
 
 
 
@@ -42,7 +41,8 @@ class QuestionsMenu : AppCompatActivity() {
             "\\\$\\\$Δd = vt\\\$\\\$",
             "\\\$\\\$d = v_1t_1 + v_2t_2\\\$\\\$",
             "\\\$\\\$Δv = a↖{→}Δt\\\$\\\$",
-            "\\\$\\\$\\a↖{→} = {v_f-v_i}/{Δt}\\\$\\\$"
+            "\\\$\\\$\\a↖{→} = {v_f-v_i}/{Δt}\\\$\\\$",
+            "\\\$\\\$Δx=({v+v_i}/2)t\\\$\\\$"
 
         )
 
@@ -50,13 +50,15 @@ class QuestionsMenu : AppCompatActivity() {
             "Displacement",
             "Displacecement of different times and velocity",
             "Acceleration",
-            "Acceleration with different velocities"
+            "Acceleration with different velocities",
+            "Displacement with different velocities"
         )
         classes = arrayOf(
             QuestionsVel1001::class.java,
             QuestionsVel1002::class.java,
             QuestionsVel1004::class.java,
-            QuestionsVel1003::class.java
+            QuestionsVel1003::class.java,
+            QuestionsVel1005::class.java
 
         )
 

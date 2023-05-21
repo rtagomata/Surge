@@ -51,7 +51,7 @@
 
     <com.zanvent.mathview.MathView
         android:id="@+id/formula"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="57dp"
         android:gravity="start"
         android:text="d = vt"
