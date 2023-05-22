@@ -3,6 +3,7 @@ package com.example.physics
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -26,6 +27,7 @@ class QuestionsVel1002 : AppCompatActivity() {
     lateinit var timetext: TextView
     var timeScore: Double = 0.0
     var timeRemaining: Double = 0.0
+    lateinit var correctAudioPlayer: MediaPlayer
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -210,6 +212,7 @@ class QuestionsVel1002 : AppCompatActivity() {
                 {
                     timeScore += timeRemaining
                     index += 1
+                    correctAudioPlayer.start()
                     setUp()
                 }
                 else if (answer == answersArray[i] && index == 10)

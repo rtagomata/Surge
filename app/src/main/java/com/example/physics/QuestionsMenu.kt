@@ -1,12 +1,10 @@
 package com.example.physics
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zanvent.mathview.MathView
@@ -21,7 +19,7 @@ class QuestionsMenu : AppCompatActivity() {
     lateinit var mathView: MathView
 
     private lateinit var newRecyclerView: RecyclerView
-    private lateinit var newQuestionList: ArrayList<Question>
+    private lateinit var newQuestionList: ArrayList<QuestionItem>
     lateinit var formulas: Array<String>
     lateinit var descriptions: Array<String>
     lateinit var classes: Array<Class<*>>
@@ -33,7 +31,7 @@ class QuestionsMenu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
-        size = 5
+        size = 6
 
 
 
@@ -42,7 +40,9 @@ class QuestionsMenu : AppCompatActivity() {
             "\\\$\\\$d = v_1t_1 + v_2t_2\\\$\\\$",
             "\\\$\\\$Δv = a↖{→}Δt\\\$\\\$",
             "\\\$\\\$\\a↖{→} = {v_f-v_i}/{Δt}\\\$\\\$",
-            "\\\$\\\$Δx=({v+v_i}/2)t\\\$\\\$"
+            "\\\$\\\$Δx=({v+v_i}/2)t\\\$\\\$",
+            "\\\$\\\$d↖{→} = {v_it}+1/2a↖{→}t\\\$\\\$"
+
 
         )
 
@@ -51,14 +51,16 @@ class QuestionsMenu : AppCompatActivity() {
             "Displacecement of different times and velocity",
             "Acceleration",
             "Acceleration with different velocities",
-            "Displacement with different velocities"
+            "Displacement with different velocities",
+            "Displacement with velocity, time, and acceleration"
         )
         classes = arrayOf(
             QuestionsVel1001::class.java,
             QuestionsVel1002::class.java,
             QuestionsVel1004::class.java,
             QuestionsVel1003::class.java,
-            QuestionsVel1005::class.java
+            QuestionsVel1005::class.java,
+            QuestionsVel1006::class.java
 
         )
 
@@ -76,11 +78,11 @@ class QuestionsMenu : AppCompatActivity() {
         newRecyclerView.layoutManager = LinearLayoutManager(this)
         newRecyclerView.setHasFixedSize(true)
 
-        newQuestionList = arrayListOf<Question>()
+        newQuestionList = arrayListOf<QuestionItem>()
 
         for (i in 0 until size)
         {
-            val question = Question(formulas[i], descriptions[i], classes[i], scores[i])
+            val question = QuestionItem(formulas[i], descriptions[i], classes[i], scores[i])
             newQuestionList.add(question)
             newQuestionList[i]
         }

@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.zanvent.mathview.MathView
-import java.security.AccessController.getContext
 import androidx.appcompat.app.AppCompatActivity
 
-class Adapter (private val context: Context, private val questionList: ArrayList<Question>) :
+class Adapter (private val context: Context, private val questionList: ArrayList<QuestionItem>) :
     RecyclerView.Adapter<Adapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

@@ -18,6 +18,9 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".QuestionsVel1006"
+            android:exported="false" />
+        <activity
             android:name=".QuestionsVel1005"
             android:exported="false" />
         <activity
